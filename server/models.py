@@ -1,59 +1,72 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-from sqlalchemy.orm import validates
-from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy_serializer import SerializerMixin
 
-metadata = MetaData(
-    naming_convention={
-        "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-    }
-)
+db = SQLAlchemy()
 
-db = SQLAlchemy(metadata=metadata)
+#A Restaurant has many Pizzas through RestaurantPizza
+#A Pizza has many Restaurants through RestaurantPizza
+#A RestaurantPizza belongs to a Restaurant and belongs to a Pizza
 
-
-class Restaurant(db.Model, SerializerMixin):
-    __tablename__ = "restaurants"
-
+class Restaurant(db.Model):
+    __tablename__ = 'restaurants'
+    
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     address = db.Column(db.String)
-
-    # add relationship
-
-    # add serialization rules
-
+        
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'address': self.address,
+            'restaurant_pizzas': [pizza.to_dict() for pizza in self.restaurant_pizzas]
+        }
+    
     def __repr__(self):
-        return f"<Restaurant {self.name}>"
+        return f'<Restaurant {self.name}>'
 
-
-class Pizza(db.Model, SerializerMixin):
-    __tablename__ = "pizzas"
-
+class Pizza(db.Model):
+    __tablename__ = 'pizzas'
+    
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     ingredients = db.Column(db.String)
-
-    # add relationship
-
-    # add serialization rules
-
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'ingredients': self.ingredients,
+        }
+    
     def __repr__(self):
-        return f"<Pizza {self.name}, {self.ingredients}>"
+        return f'<Pizza {self.name}>'
 
-
-class RestaurantPizza(db.Model, SerializerMixin):
-    __tablename__ = "restaurant_pizzas"
-
+class RestaurantPizza(db.Model):
+    __tablename__ = 'restaurant_pizzas'
+    
     id = db.Column(db.Integer, primary_key=True)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
+    pizza_id = db.Column(db.Integer, db.ForeignKey('pizzas.id'))
     price = db.Column(db.Integer, nullable=False)
-
-    # add relationships
-
-    # add serialization rules
-
-    # add validation
-
+    
+    restaurant = db.relationship('Restaurant', backref=db.backref('restaurant_pizzas', cascade='all, delete-orphan'))
+    pizza = db.relationship('Pizza', backref=db.backref('restaurant_pizzas', cascade='all, delete-orphan'))
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'price': self.price,
+            'restaurant': {
+                'id': self.restaurant.id,
+                'name': self.restaurant.name,
+                'address': self.restaurant.address
+            },
+            'pizza': {
+                'id': self.pizza.id,
+                'name': self.pizza.name,
+                'ingredients': self.pizza.ingredients
+            }
+        }
+    
     def __repr__(self):
-        return f"<RestaurantPizza ${self.price}>"
+        return f'<RestaurantPizza {self.restaurant.name} - {self.pizza.name} (${self.price})>'

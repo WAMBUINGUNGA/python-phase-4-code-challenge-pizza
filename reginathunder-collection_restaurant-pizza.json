@@ -1,0 +1,81 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "restaurant-pizza",
+    "collectionId": "def64a14-5ed5-4256-bb7b-2fdeff4a693a",
+    "dateExported": "2024-07-08T07:09:25.836Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "6d2b9c6f-b4dd-4b12-8d7b-8def9fe97e61",
+            "colId": "def64a14-5ed5-4256-bb7b-2fdeff4a693a",
+            "containerId": "",
+            "name": "GET ALL PIZZAS",
+            "url": "http://127.0.0.1:5555/pizzas",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-07-06T22:41:27.208Z",
+            "modified": "2024-07-06T22:41:27.208Z",
+            "headers": []
+        },
+        {
+            "_id": "0fc43902-b612-40af-b0c1-14650b11c161",
+            "colId": "def64a14-5ed5-4256-bb7b-2fdeff4a693a",
+            "containerId": "",
+            "name": "GET RESTAURANTS/ID",
+            "url": "http://127.0.0.1:5555/restaurants/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-07-06T22:41:55.768Z",
+            "modified": "2024-07-06T22:41:55.768Z",
+            "headers": []
+        },
+        {
+            "_id": "55555af0-4c0c-43e1-aca2-b02c392d3567",
+            "colId": "def64a14-5ed5-4256-bb7b-2fdeff4a693a",
+            "containerId": "",
+            "name": "DELETE RESTAURANT",
+            "url": "http://127.0.0.1:5555/restaurants/3",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2024-07-06T22:42:35.219Z",
+            "modified": "2024-07-06T22:42:35.219Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"price\": 5,\n  \"pizza_id\": 1,\n  \"restaurant_id\": 3\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "7f255704-6465-4a4f-ac3e-89f070144fc1",
+            "colId": "def64a14-5ed5-4256-bb7b-2fdeff4a693a",
+            "containerId": "",
+            "name": "GET RESTAURANTS Copy",
+            "url": "http://127.0.0.1:5555/restaurants",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-07-06T22:43:20.431Z",
+            "modified": "2024-07-06T22:43:20.431Z",
+            "headers": []
+        },
+        {
+            "_id": "6b09ae11-1a7e-46af-aee5-e7272f6601e1",
+            "colId": "def64a14-5ed5-4256-bb7b-2fdeff4a693a",
+            "containerId": "",
+            "name": "CREATE NEW RESTAURANT Copy",
+            "url": "http://127.0.0.1:5555/restaurant_pizzas",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-07-06T22:43:41.330Z",
+            "modified": "2024-07-07T18:23:44.507Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"price\": 5,\n  \"pizza_id\": 1,\n  \"restaurant_id\": 1\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "lt_ChzvKB5R-8bCrO21IBuUTuCHnEMpN1Zzuykg19sO12D6MNmoFzC76SU1ftcIfjHuYbXApZPhqdikSpKZVZA"
+}
